@@ -16,7 +16,8 @@ The workflow is complete when EmpirePulse has processed the available registrati
 
 ### 1.4 General Workflow
 
-[Describe the overall sequence of tasks in one or two paragraphs. Explain the normal path first, followed by the most important exception paths and human-review points.]
+EmpirePulse imports the event’s registration list, validates the data, and combines it with the club’s historical attendance rate, currently about 40%. As the event approaches, it may send a limited number of privacy-conscious confirmation requests and record participant responses. The system then estimates likely attendance, provides a confidence range, and recommends quantities of food, drinks, and swag. It presents these results in a planning summary for CPVC organizers.
+If registration data is missing, duplicated, or inconsistent, EmpirePulse flags the affected records for organizer review. When confirmation responses are limited, forecast confidence is low, or recommendations exceed the event’s budget or venue capacity, the system presents alternative planning scenarios and requests a human decision. Organizers must approve participant communications and final purchasing quantities; EmpirePulse does not place orders automatically.
 
 ### 1.5 Workflow Diagram
 
