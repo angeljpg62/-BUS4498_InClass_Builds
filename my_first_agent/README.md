@@ -7,16 +7,18 @@
 
 ### System Designer Name
 
-[Enter your name.]
+[Angel Losoya.]
 
 
 ### System Name
 
-[Use a default name "HackTrack" or enter the name you choose for the system.]
+EmpirePulse
 
 ### System Goal
-[Read Chapter 2 Section 2.1, then enter the well-structured goal of your agentic system]
+System Goal
+
+For CPVC organizers, Empire Pulse will improve planning for food, drinks, and event attire by producing a more accurate attendance forecast, measured by reducing attendance overestimation from approximately 60% when relying on registrations alone to within 10% of actual attendance, without collecting unnecessary personal information or sending excessive messages to participants.
 
 ### Who Is Better Off When This Works?
 
-[In one complete sentence, identify who will be better off when the system works.]
+CPVC organizers and hackathon participants. Organizers can make better purchasing decisions and avoid wasting their limited budget, while participants are more likely to receive adequate food, drinks, and event attire. 
