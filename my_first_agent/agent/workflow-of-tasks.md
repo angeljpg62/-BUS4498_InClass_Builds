@@ -8,11 +8,11 @@ This workflow supports the system goal defined in `my_first_agent/README.md`.
 
 ### 1.2 Workflow Trigger
 
-[Describe the event, request, schedule, or condition that starts the workflow.]
+The workflow begins when a CPVC organizer creates a new hackathon event in EmpirePulse and uploads the current registration list. It runs again on a scheduled basis as the event approaches or when participants update their attendance status.
 
 ### 1.3 Completion Condition at Runtime
 
-[Describe how the system knows, on any given run, that this workflow is completed.]
+The workflow is complete when EmpirePulse has processed the available registration and confirmation data, generated an attendance estimate with a confidence range, calculated recommended food, drink, and the swagger quantities, and delivered the planning summary to the CPVC organizers. Any missing or uncertain data must be clearly flagged.
 
 ### 1.4 General Workflow
 
