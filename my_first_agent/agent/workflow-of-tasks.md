@@ -25,38 +25,38 @@ If registration data is missing, duplicated, or inconsistent, EmpirePulse flags 
 
 ```mermaid
 flowchart TD
-    S0["Workflow trigger: CPVC organizer creates a new hackathon event and uploads the current registration list, a scheduled run occurs as the event approaches, or a participant updates attendance status"] --> T1["Import event registration list"]
-    T1 --> T2["Validate registration data"]
+    S0["Workflow trigger: CPVC organizer creates a new hackathon event and uploads the current registration list, a scheduled run occurs as the event approaches, or a participant updates attendance status"] --> T1["T1: Import event registration list"]
+    T1 --> T2["T2: Validate registration data"]
     T2 --> D1{"D1: Is registration data missing, duplicated, or inconsistent?"}
-    D1 -->|Yes| T3["Flag affected registration records for organizer review"]
-    T3 --> T4["Review affected registration records"]
+    D1 -->|Yes| T3["T3: Flag affected registration records for organizer review"]
+    T3 --> T4["T4: Review affected registration records"]
     T4 --> D2{"D2: Have organizers resolved the affected records?"}
     D2 -->|Yes| T2
-    D2 -->|No| T5["Record missing or uncertain registration data"]
-    D1 -->|No| T6["Combine registration data with the historical attendance rate of about 40%"]
+    D2 -->|No| T5["T5: Record missing or uncertain registration data"]
+    D1 -->|No| T6["T6: Combine registration data with the historical attendance rate of about 40%"]
     T5 --> T6
     T6 --> D3{"D3: Should participant confirmation requests be sent?"}
-    D3 -->|Yes| T7["Request organizer approval for participant communications"]
+    D3 -->|Yes| T7["T7: Request organizer approval for participant communications"]
     T7 --> D4{"D4: Have organizers approved participant communications?"}
-    D4 -->|Yes| T8["Send limited privacy-conscious confirmation requests"]
-    T8 --> T9["Record participant confirmation responses"]
-    D4 -->|No| T10["Estimate likely attendance"]
+    D4 -->|Yes| T8["T8: Send limited privacy-conscious confirmation requests"]
+    T8 --> T9["T9: Record participant confirmation responses"]
+    D4 -->|No| T10["T10: Estimate likely attendance"]
     D3 -->|No| T10
     T9 --> T10
-    T10 --> T11["Generate attendance confidence range"]
+    T10 --> T11["T11: Generate attendance confidence range"]
     T11 --> D5{"D5: Are confirmation responses limited or forecast confidence low?"}
-    D5 -->|Yes| T12["Present alternative planning scenarios and request a human decision"]
-    T12 --> T13["Review alternative planning scenarios"]
+    D5 -->|Yes| T12["T12: Present alternative planning scenarios and request a human decision"]
+    T12 --> T13["T13: Review alternative planning scenarios"]
     T13 --> D6{"D6: Has an organizer made a planning decision?"}
-    D6 -->|Yes| T14["Apply organizer planning decision"]
+    D6 -->|Yes| T14["T14: Apply organizer planning decision"]
     D6 -->|No| T12
-    D5 -->|No| T15["Calculate recommended food, drink, and swag quantities"]
+    D5 -->|No| T15["T15: Calculate recommended food, drink, and swag quantities"]
     T14 --> T15
     T15 --> D7{"D7: Do recommendations exceed the event budget or venue capacity?"}
     D7 -->|Yes| T12
-    D7 -->|No| T16["Generate planning summary with attendance estimate, confidence range, recommendations, and data flags"]
-    T16 --> T17["Deliver planning summary to CPVC organizers"]
-    T17 --> T18["Request organizer approval for final purchasing quantities"]
+    D7 -->|No| T16["T16: Generate planning summary with attendance estimate, confidence range, recommendations, and data flags"]
+    T16 --> T17["T17: Deliver planning summary to CPVC organizers"]
+    T17 --> T18["T18: Request organizer approval for final purchasing quantities"]
     T18 --> D8{"D8: Have organizers approved final purchasing quantities?"}
     D8 -->|Yes| E0["Completion: available registration and confirmation data are processed, an attendance estimate and confidence range are generated, recommended quantities are calculated, the planning summary is delivered, and missing or uncertain data are flagged"]
     D8 -->|No| E1["Stopping condition: final purchasing quantities are not approved"]
