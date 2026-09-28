@@ -7,7 +7,7 @@
 
 ### System Designer Name
 
-[Angel Losoya.]
+Angel Losoya
 
 
 ### System Name
