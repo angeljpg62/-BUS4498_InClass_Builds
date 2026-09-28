@@ -41,14 +41,14 @@ Produce clear alternative food, drink, and attire planning scenarios for CPVC or
 ### Tool 1
 
 - **Tool name:** retrieve_planning_context
-- **Tool type:** [API request or database query.]
-- **Supports these permitted subtasks:** [assess planning constraints; identify unresolved constraints.]
-- **Allowed use:** [Read the available planning context and data-quality flags from EmpirePulse.]
-- **Prohibited use:** [Change registration records, request participant information, send participant messages, place orders, or change purchasing quantities.]
-- **Approval required:** [None within the allowed read-only use.]
-- **Timeout per call:** [30 seconds.]
-- **Maximum retries per call:** [1.]
-- **Retry conditions and failure response:** [Retry only for a temporary retrieval failure; hand off to CPVC organizers if the context remains unavailable or unclear.]
+- **Tool type:** API request or database query
+- **Supports these permitted subtasks:** Assess planning constraints; identify unresolved constraints
+- **Allowed use:** Read the available planning context and data-quality flags from EmpirePulse
+- **Prohibited use:** Change registration records, request participant information, send participant messages, place orders, or change purchasing quantities.
+- **Approval required:** None within the allowed read-only use.
+- **Timeout per call:** 30 seconds.
+- **Maximum retries per call:** 1
+- **Retry conditions and failure response:** Retry only for a temporary retrieval failure; hand off to CPVC organizers if the context remains unavailable or unclear.
 
 *Copy the Tool block as needed. Tool-specific and task-wide limits both apply; stop at whichever is reached first. Naming a tool does not authorize uses outside its stated permissions.*
 
@@ -58,13 +58,13 @@ Produce clear alternative food, drink, and attire planning scenarios for CPVC or
 
 ### Permitted Subtasks
 
-- **Subtask name:** [assess_planning_constraints.]
-- **Subtask description:** [Examine the available attendance estimate, confidence range, data flags, budget information, and venue-capacity information to identify the most important planning uncertainty.]
-- **Subtask boundary:** [Use only retrieved EmpirePulse planning context; do not request more participant information or make decisions for organizers?]
-- **Retry limits:** [1]
+- **Subtask name:** assess_planning_constraints.
+- **Subtask description:** Examine the available attendance estimate, confidence range, data flags, budget information, and venue-capacity information to identify the most important planning uncertainty.
+- **Subtask boundary:** Use only retrieved EmpirePulse planning context; do not request more participant information or make decisions for organizers?
+- **Retry limits:** 1
 
 - Subtask name: formulate_planning_scenarios
-- Subtask description: Develop alternative food, drink, and swag planning scenarios that address the most important remaining uncertainty.
+- Subtask description: Develop alternative food, drink, and attire planning scenarios that address the most important remaining uncertainty.
 - Subtask boundary: Keep scenarios within the available evidence and clearly flag missing or uncertain information; do not place orders or select a scenario.
 - Retry limits: 1
 
@@ -82,9 +82,9 @@ Produce clear alternative food, drink, and attire planning scenarios for CPVC or
 
 ## 5. When to Stop or Hand Off to a Human
 
-- **Stop successfully when:** [The task has produced alternative planning scenarios, identified supporting evidence and unresolved uncertainty, and presented a clear decision request to CPVC organizers]
-- **Hand off early when:** [Required planning context is missing, conflicting, unavailable after retries, outside the task boundary, or insufficient to prepare supported scenarios.]
-- **Hand off to:** [CPVC organizers.]
+- **Stop successfully when:** The task has produced alternative planning scenarios, identified supporting evidence and unresolved uncertainty, and presented a clear decision request to CPVC organizers
+- **Hand off early when:** Required planning context is missing, conflicting, unavailable after retries, outside the task boundary, or insufficient to prepare supported scenarios.
+- **Hand off to:** CPVC organizers.
 
 Stop at the first applicable budget limit or handoff condition. While awaiting review, take no further autonomous action.
 
