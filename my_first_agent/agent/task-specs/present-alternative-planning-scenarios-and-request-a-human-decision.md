@@ -35,19 +35,26 @@ Produce clear alternative food, drink, and attire planning scenarios for CPVC or
 
 ### Task-Wide Limits
 
-- **Total task timeout:** 5 minutes.
-- **Maximum tool calls:** 8
+- **Total task timeout:** 5 minutes. This includes inference requests, tool calls, reties, and waiting
+- **Maximum tool calls:** 4 total calls across all tools; retries count toward this limit 
 
 ### Tool 1
 
 - **Tool name:** retrieve_planning_context
+- **Input:** 'event_id'
+- **Output** 'planning context'
+- **Implementation Route:** Web API call to EmpirePulse.
+- **Integration approach:** Direct integration.
+- **Role in this task:** Supports `assess_planning_constraints` and `identify_unresolved_constraints` by retrieving the current event planning evidence.
 - **Tool type:** API request or database query
 - **Supports these permitted subtasks:** Assess planning constraints; identify unresolved constraints
 - **Allowed use:** Read the available planning context and data-quality flags from EmpirePulse
 - **Prohibited use:** Change registration records, request participant information, send participant messages, place orders, or change purchasing quantities.
 - **Approval required:** None within the allowed read-only use.
-- **Timeout per call:** 30 seconds.
-- **Maximum retries per call:** 1
+- **Timeout per call:** 30 seconds per call, within the 5-minute task-wide limit
+- **Maximum retries per call:** 1 additional attempt
+- **Retry only when:** A temporary timeout or service-unavailable response occurs. Wait 15 seconds before retrying. Do not retry invalid input, access denied, not found, or a malformed response.
+- **On timeout, exhausted retries, or an error that cannot be retried:** Record `planning_context_unavailable`, the failure category, and the event ID; then hand the case to CPVC organizers. Do not treat a failed lookup as proof that planning data does not exist.
 - **Retry conditions and failure response:** Retry only for a temporary retrieval failure; hand off to CPVC organizers if the context remains unavailable or unclear.
 
 *Copy the Tool block as needed. Tool-specific and task-wide limits both apply; stop at whichever is reached first. Naming a tool does not authorize uses outside its stated permissions.*
@@ -57,28 +64,37 @@ Produce clear alternative food, drink, and attire planning scenarios for CPVC or
 *Define permitted kinds of work rather than a fixed sequence. The agent selects its next subtask using intermediate findings and may skip, repeat, or combine permitted subtasks within Section 3's limits. Individual subtasks do not all have to be L3. Copy the Permitted Subtask block as needed.*
 
 ### Permitted Subtasks
+The agent may select, skip, repeat, or combine only the permitted subtasks below based on intermediate findings. It must not follow a fixed sequence, create new evidence, make a planning decision, contact participants, or act outside the task-wide and tool limits.
+
+Permitted Subtask 1 
 
 - **Subtask name:** assess_planning_constraints.
-- **Subtask description:** Examine the available attendance estimate, confidence range, data flags, budget information, and venue-capacity information to identify the most important planning uncertainty.
-- **Subtask boundary:** Use only retrieved EmpirePulse planning context; do not request more participant information or make decisions for organizers?
-- **Retry limits:** 1
+- **Subtask description:** Examine the available attendance estimate, confidence range, data flags, budget information, and venue-capacity information to identify the most important planning uncertainty. 
+- **Subtask boundary:** Use only retrieved EmpirePulse planning context; do not request more participant information, change records, or make a decision for organizers. 
+- **Retry limits:** 1 reassessment only if a permitted subtask reveals relevant new evidence.
+
+Permitted Subtask 2
 
 - Subtask name: formulate_planning_scenarios
-- Subtask description: Develop alternative food, drink, and attire planning scenarios that address the most important remaining uncertainty.
-- Subtask boundary: Keep scenarios within the available evidence and clearly flag missing or uncertain information; do not place orders or select a scenario.
-- Retry limits: 1
+- Subtask description: Develop alternative food, drink, and swag planning scenarios that address the most important unresolved uncertainty.
+- Subtask boundary: Ground every scenario in available evidence and label assumptions, tradeoffs, and uncertain information. Do not invent attendance data, select a scenario, place orders, or set final purchasing quantities.
+- Retry limits: 1 revision only when an earlier scenario exposes a constraint that can be addressed with available evidence. 
+
+Permitted Subtask 3 
 
 - Subtask name: identify_unresolved_constraints
-- Subtask description: Determine whether missing data, low confidence, budget concerns, or venue-capacity concerns prevent a supported recommendation.
-- Subtask boundary: Identify uncertainty without creating new data or contacting participants.
+- Subtask description: Determine whether missing data, low forecast confidence, budget concerns, or venue-capacity concerns prevent a supported recommendation.
+- Subtask boundary: Identify uncertainty without creating new data, contacting participants or changing any business record.
 - Retry limits: 0
 
-- Subtask name: prepare_organizer_decision_package
-- Subtask description: Present the alternative scenarios, supporting evidence, flagged uncertainties, and the decision required from CPVC organizers.
-- Subtask boundary: Request a human decision and take no further autonomous action while awaiting review.
-- Retry limits: 1
+  Permitted Subtask 4 
 
-- **Decision guidance:** After each subtask, use its findings to select the permitted subtask most likely to resolve the most important remaining uncertainty. Do not follow a fixed sequence. If no permitted subtask can make useful progress, stop and hand the case to a person.
+- Subtask name: prepare_organizer_decision_package
+- Subtask description: Present the alternative scenarios, supporting evidence, unresolved uncertainties, and the specific decision required from CPVC organizers.
+- Subtask boundary: Request a human decision and take no further autonomous action while awaiting review.
+- Retry limits: 1 formatting or completeness revision only; it may not change underlying evidence or make a decision
+
+- **Decision guidance:** After each subtask, select the permitted subtask most likely to clarify the most important remaining uncertainty. If a decision package for the same planning-context version is already awaiting organizer input, stop and route it to T13 rather than regenerate the same scenarios. If no permitted subtask can make useful progress, stop and hand the case to CPVC organizers.
 
 ## 5. When to Stop or Hand Off to a Human
 
