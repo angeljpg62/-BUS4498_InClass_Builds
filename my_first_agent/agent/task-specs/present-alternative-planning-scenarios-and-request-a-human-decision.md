@@ -40,7 +40,7 @@ Produce clear alternative food, drink, and attire planning scenarios for CPVC or
 
 ### Tool 1
 
-- **Tool name:** [retrieve_planning_context]
+- **Tool name:** retrieve_planning_context
 - **Tool type:** [API request or database query.]
 - **Supports these permitted subtasks:** [assess planning constraints; identify unresolved constraints.]
 - **Allowed use:** [Read the available planning context and data-quality flags from EmpirePulse.]
