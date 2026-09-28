@@ -6,15 +6,15 @@ Present alternative planning scenarios and request a human decision Task Specifi
 
 ```yaml
 # BASIC INFORMATION
-task_id: "[T12]"
-task_name: "[Present alternative planning scenarios and request a human decision]"
-task_owner: "[CPVC organizers]"
+task_id: T12
+task_name: Present alternative planning scenarios and request a human decision
+task_owner: CPVC organizers
 # Agent Inference Configuration
-Provider: [OpenAI]
-Model: "[gpt-4.1-mini]"
-Role: "[Assess planning constraints, develop bounded alternative planning scenarios, and prepare an organizer decision request]"
-Maximum inference requests per task run: "[4]"
-On inference failure or exhausted limits: Record the unresolved status and hand the case to [CPVC organizers].
+Provider: OpenAI
+Model: gpt-4.1-mini
+Role: Assess planning constraints, develop bounded alternative planning scenarios, and prepare an organizer decision request
+Maximum inference requests per task run: 4
+On inference failure or exhausted limits: Record the unresolved status and hand the case to CPVC organizers.
 ``` 
 
 ## 1. Task Goal
