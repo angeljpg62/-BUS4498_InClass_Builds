@@ -19,16 +19,16 @@ On inference failure or exhausted limits: Record the unresolved status and hand 
 
 ## 1. Task Goal
 
-- [## Produce clear alternative food, drink, and swag planning scenarios for CPVC organizers when attendance uncertainty, budget, or venue capacity requires a human decision ]
+Produce clear alternative food, drink, and swag planning scenarios for CPVC organizers when attendance uncertainty, budget, or venue capacity requires a human decision
 
 ## 2. Inbound Inputs
 
 
 ### Input 1
 
-- **Input name:** [Planning Context]
-- **What it contains:** [Available registration data, confirmation responses, historical attendance rate, attendance estimate, confidence range, data-quality flags, and available budget or venue-capacity information.]
-- **Source:** [EmpirePulse workflow outputs and CPVC organizers.]
+- **Input name:** Planning Context
+- **What it contains:** Available registration data, confirmation responses, historical attendance rate, attendance estimate, confidence range, data-quality flags, and available budget or venue-capacity information.
+- **Source:** EmpirePulse workflow outputs and CPVC organizers
 ## 3. Tool Permissions and Boundaries
 
 *Name each planned tool and specify its permitted use. Use verb-object names, such as `retrieve_records`, usually matching the task or permitted subtask it supports. Tool name identifies the capability; tool type identifies the proposed implementation. No scripts or working integrations are required.*
