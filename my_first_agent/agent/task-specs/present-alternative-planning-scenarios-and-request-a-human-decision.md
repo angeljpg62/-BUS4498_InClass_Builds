@@ -19,7 +19,7 @@ On inference failure or exhausted limits: Record the unresolved status and hand 
 
 ## 1. Task Goal
 
-Produce clear alternative food, drink, and swag planning scenarios for CPVC organizers when attendance uncertainty, budget, or venue capacity requires a human decision
+Produce clear alternative food, drink, and attire planning scenarios for CPVC organizers when attendance uncertainty, budget, or venue capacity requires a human decision
 
 ## 2. Inbound Inputs
 
