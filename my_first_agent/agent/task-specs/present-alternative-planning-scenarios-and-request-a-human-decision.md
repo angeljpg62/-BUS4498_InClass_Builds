@@ -35,8 +35,8 @@ Produce clear alternative food, drink, and attire planning scenarios for CPVC or
 
 ### Task-Wide Limits
 
-- **Total task timeout:** [5 minutes.]
-- **Maximum tool calls:** [8.]
+- **Total task timeout:** 5 minutes.
+- **Maximum tool calls:** 8
 
 ### Tool 1
 
