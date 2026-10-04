@@ -1,1 +1,20 @@
+About the Agentic System
+BUS 4498 Team Build
 
+Problem to be solved: The Cal Poly Taiwanese Culture Organization needs a more reliable way to plan spending for cultural events and recurring activities. Currently, budgets may rely on estimates or memory, making it difficult to account for available funds, purchase frequency, attendance, and changing costs. As a rough baseline, assume that actual event spending varies from the original budget by approximately 20%, causing occasional overspending or unused funds. This problem makes it harder for the organization to allocate money confidently across food, clothing, decorations, and other event expenses.
+
+Team Charter
+Team Name
+Bag Hustlers
+
+Team Members
+Keanu Widjaja
+Angel Losoya
+System Name
+BudgetPilot
+
+System Goal
+For individuals and organizations managing recurring expenses, reduce average monthly overspending across food, clothing, events, and similar categories by 25%, measured by the difference between planned and actual spending, moving from a baseline established during the user’s first month to the target within 90 days, without making purchases or financial transfers, overriding user priorities, or presenting estimates as guaranteed outcomes.
+
+Who Is Better Off When This Works?
+Organizations or individuals who are in need of assistance in budgeting the money that they spend on various things, especially those who have trouble analyzing the gap between their past spending and the money that they have available, can benefit from this agent.
