@@ -30,6 +30,11 @@
           <span class="hint">Paste it as you’d send it to your group chat. Include the date, start time, and place.</span>
         </label>
         <textarea id="announcement" name="announcement" maxlength="2000" required></textarea>
+        <label for="flyer">
+          Flyer photo (optional)
+          <span class="hint">A JPG or PNG up to 5 MB. Posts with a photo are checked by a moderator first.</span>
+        </label>
+        <input type="file" id="flyer" name="flyer" accept="image/jpeg,image/png">
         <button type="submit" id="post-button">Post event</button>
       </form>
       <div id="result" hidden></div>
