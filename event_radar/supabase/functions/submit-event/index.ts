@@ -334,7 +334,17 @@ const MESSAGES = {
   waiting: "Thanks! A moderator will check your post before it appears on the website.",
   rejected: "This wasn't posted because it doesn't look like an event.",
   duplicate: "This event is already on the website: same date, start time, and place.",
+  already_read: "This chat message was already read, so it gets no second decision.",
 };
+
+// Stage 14: a post that came from a chat message already has its decision.
+function alreadyRead(): Response {
+  return json({ ok: true, status: "duplicate", already_read: true, message: MESSAGES.already_read, reasons: [] });
+}
+
+function asText(value: unknown, max: number): string {
+  return typeof value === "string" ? value.trim().slice(0, max) : "";
+}
 
 const PUBLIC_COLUMNS =
   "id, created_at, status, title, club, event_date, start_time, end_time, place_name, place_detail, cost, free_food, summary, flyer_url";
@@ -365,10 +375,18 @@ Deno.serve(async (req: Request) => {
     // Read the announcement (and an optional flyer photo) from a form or from JSON.
     let announcement = "";
     let flyerFile: File | null = null;
+    // Stage 14: where the post came from (a chat app and its message id). Empty for the website.
+    // The chat reader also sends `thread`; the agent starts reading it in Stage 12.
+    let source = "";
+    let sourceId = "";
+    let sourceName = "";
     const contentType = req.headers.get("content-type") ?? "";
     if (contentType.includes("application/json")) {
       const body = await req.json().catch(() => ({}));
       announcement = typeof body?.announcement === "string" ? body.announcement : "";
+      source = asText(body?.source, 40);
+      sourceId = asText(body?.source_id, 100);
+      sourceName = asText(body?.source_name, 100);
     } else {
       const form = await req.formData().catch(() => null);
       const value = form?.get("announcement");
@@ -396,6 +414,19 @@ Deno.serve(async (req: Request) => {
     const db = createClient(Deno.env.get("SUPABASE_URL")!, key, {
       auth: { persistSession: false, autoRefreshToken: false },
     });
+
+    // One decision per chat message: if this message was read before, stop here (no AI call).
+    // The unique index events_one_per_message is the backstop if two runs overlap.
+    if (source && sourceId) {
+      const { data: seen, error: seenError } = await db
+        .from("events")
+        .select("id")
+        .eq("source", source)
+        .eq("source_id", sourceId)
+        .limit(1);
+      if (seenError) throw seenError;
+      if (seen && seen.length > 0) return alreadyRead();
+    }
 
     // Spending limit: at most 100 new posts in 24 hours.
     const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
@@ -452,6 +483,9 @@ Deno.serve(async (req: Request) => {
       note_for_moderator: card.note_for_moderator,
       dedupe_key: dedupeKey,
       ai_model: aiChoice().model,
+      source,
+      source_id: source ? sourceId : "",
+      source_name: sourceName,
     };
 
     const { data: saved, error: insertError } = await db
@@ -462,6 +496,9 @@ Deno.serve(async (req: Request) => {
 
     if (insertError) {
       if (insertError.code === "23505") {
+        if (`${insertError.message} ${insertError.details ?? ""}`.includes("events_one_per_message")) {
+          return alreadyRead();
+        }
         return json({
           ok: true,
           status: "duplicate",
